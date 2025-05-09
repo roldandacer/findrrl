@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FindRRL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .suggestion:hover { background-color: #f1f5f9; cursor: pointer; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <header class="bg-white shadow-sm">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-600">📘 FindRRL</h1>
+      <nav class="space-x-4 text-sm">
+        <a href="#" class="hover:underline">Home</a>
+        <a href="#sources" class="hover:underline">Sources</a>
+        <a href="#upload" class="hover:underline">Upload</a>
+        <a href="#tips" class="hover:underline">Tips</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <section class="mb-10 text-center">
+      <h2 class="text-2xl font-semibold mb-3">Find Related Literature for Your Research</h2>
+      <p class="text-sm text-gray-600 mb-6">Type your research topic and we’ll suggest where to look.</p>
+      
+      <input 
+        id="searchInput"
+        type="text"
+        placeholder="e.g., automated irrigation system using IoT"
+        class="w-full max-w-xl px-4 py-2 border rounded shadow-sm focus:outline-none"
+        oninput="showSuggestions()"
+      />
+      
+      <div id="suggestions" class="mt-3 text-left bg-white rounded shadow-md max-w-xl mx-auto"></div>
+    </section>
+
+    <section id="sources" class="mb-12">
+      <h3 class="text-lg font-semibold mb-4">Recommended RRL Websites</h3>
+      <ul class="space-y-2 list-disc list-inside text-sm text-blue-700">
+        <li><a href="https://scholar.google.com" target="_blank">Google Scholar</a></li>
+        <li><a href="https://www.sciencedirect.com/" target="_blank">ScienceDirect</a></li>
+        <li><a href="https://ieeexplore.ieee.org/" target="_blank">IEEE Xplore</a></li>
+        <li><a href="https://www.researchgate.net/" target="_blank">ResearchGate</a></li>
+        <li><a href="https://www.jstor.org/" target="_blank">JSTOR</a></li>
+      </ul>
+    </section>
+
+    <section id="upload" class="mb-12">
+      <h3 class="text-lg font-semibold mb-4">Upload Your RRL</h3>
+      <p class="text-sm text-gray-600 mb-4">Share your research summary by uploading a PDF file here!</p>
+      <form action="https://formspree.io/f/xvonkqlw" method="POST" class="space-y-4">
+        <input type="file" name="file" accept=".pdf" class="w-full max-w-lg px-4 py-2 border rounded shadow-sm focus:outline-none"/>
+        <button type="submit" class="w-full max-w-lg bg-blue-600 text-white py-2 rounded shadow hover:bg-blue-700">Upload RRL</button>
+      </form>
+    </section>
+
+    <section id="download" class="mb-12">
+      <h3 class="text-lg font-semibold mb-4">Download Available RRLs</h3>
+      <ul class="space-y-2 text-sm text-blue-700">
+        <li><a href="https://example.com/your-rrl.pdf" target="_blank" class="hover:underline">Automated Irrigation System Summary (PDF)</a></li>
+        <li><a href="https://example.com/another-rrl.pdf" target="_blank" class="hover:underline">IoT in Agriculture Overview (PDF)</a></li>
+        <!-- Add more downloadable links here -->
+      </ul>
+    </section>
+
+    <section id="tips" class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Tips for Finding RRL</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>Use specific keywords (e.g., "automated irrigation IoT sensor")</li>
+        <li>Try Boolean operators: AND, OR, NOT</li>
+        <li>Start with abstracts, then download full-text if available</li>
+        <li>Check university libraries or ask professors for access</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-xs text-gray-500 py-4 border-t">
+    &copy; 2025 FindRRL. Helping students research smarter.
+  </footer>
+
+  <script>
+    const suggestions = {
+      "automated irrigation": ["Try IEEE Xplore or ScienceDirect for IoT-related systems.", "Search for 'smart agriculture IoT' on Google Scholar."],
+      "online learning": ["Check ResearchGate for COVID-era studies.", "Try JSTOR for education trends."],
+      "waste management": ["Use 'urban solid waste segregation' in ScienceDirect.", "Search for 'sustainable waste practices' on JSTOR."]
+    };
+
+    function showSuggestions() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const suggestionBox = document.getElementById('suggestions');
+      suggestionBox.innerHTML = "";
+
+      Object.keys(suggestions).forEach(topic => {
+        if (input.includes(topic)) {
+          suggestions[topic].forEach(s => {
+            const div = document.createElement("div");
+            div.textContent = "💡 " + s;
+            div.className = "suggestion px-4 py-2 text-sm text-gray-700";
+            suggestionBox.appendChild(div);
+          });
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
